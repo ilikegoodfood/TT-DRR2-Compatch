@@ -1,0 +1,163 @@
+﻿doctrine_core_tenets = {
+	group = "core_tenets"
+	number_of_picks = 3
+	
+	############################
+	# Pagan Faith Tenets  	   #
+	############################
+
+	tenet_sun_worship = { # Vanilla tenet overridden by Traditional Tenets mod
+		icon = core_tenet_skyshaman
+
+		piety_cost = {
+			if = {
+				limit = { relgion_tag = atenist_pagan }
+				value = faith_tenet_cost_low
+			}
+			else = {
+				value = faith_tenet_cost_mid
+			}
+
+			# Multiplier for keeping same tenet
+			if = {
+				limit = { has_doctrine = tenet_sun_worship }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+
+		is_shown = {
+			OR = {
+				religion_tag = zunism_religion
+				religion_tag = egyptian_religion
+			}
+		}
+
+		parameters = {
+			summer_festivals_active = yes
+			trial_by_sun_active = yes
+		}
+
+		character_modifier = {
+			desert_attrition_mult = -0.25
+			desert_mountains_attrition_mult = -0.25
+		}
+
+		piety_cost = faith_tenet_cost_mid
+	}
+
+	#############################
+	# Traditional Tenets Modded	#
+	#############################
+
+	mz_tenet_burial_rites = { # Tenet added by Traditional Tenets mod
+		icon = core_tenet_skyshaman
+
+		piety_cost = {
+			if = { 
+				limit = { has_doctrine = tenet_consolamentum }
+				value = faith_tenet_cost_low
+			}
+			else = {
+				value = faith_tenet_cost_massive
+			}
+
+			# Multiplier for keeping same tenet
+			if = {
+				limit = { has_doctrine = mz_tenet_burial_rites }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+
+		is_shown = { 
+			OR = {
+				religion_tag = kushitism_religion
+				religion_tag = egyptian_religion
+			}
+		}
+
+		can_pick = {
+			custom_description = {
+				text = mz_incompatible_tenet_ritual_suicide_trigger
+				NOT = { flag:tenet_consolamentum = { is_in_list = selected_doctrines } }
+			}
+			custom_description = {
+				text = mz_incompatible_tenet_elder_veneration_trigger
+				NOT = { flag:mz_tenet_elder_veneration = { is_in_list = selected_doctrines } }
+			}
+		}
+
+		parameters = {
+			mz_pyramid_builders_active = yes
+			mz_burial_rites_active = yes
+			consolamentum_active = yes	
+		}
+
+		character_modifier = {
+			build_speed = -0.10
+			holding_build_speed = -0.10
+		}
+	}
+	
+		mz_tenet_dawnbreakers = { # Tenet added by Traditional Tenets mod
+		icon = core_tenet_marriage
+
+		piety_cost = {
+			if = { 
+				limit = { has_doctrine = tenet_unrelenting_faith }
+				value = faith_tenet_cost_low
+			}
+			else = {
+				value = faith_tenet_cost_massive
+			}
+
+			# Multiplier for keeping same tenet
+			if = {
+				limit = { has_doctrine = mz_tenet_dawnbreakers }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+
+		is_shown = { 
+			OR = {
+				religion_tag = zunism_religion
+				religion_tag = egyptian_religion
+			}
+		}
+
+		can_pick = {
+			custom_description = {
+				text = mz_requires_tenet_divine_marriage_trigger
+				flag:tenet_divine_marriage = { is_in_list = selected_doctrines }
+			}
+			custom_description = {
+				text = mz_requires_tenet_polygamy_trigger
+				flag:doctrine_polygamy = { is_in_list = selected_doctrines }
+			}
+			custom_description = {
+				text = mz_incompatible_tenet_unrelenting_faith_trigger
+				NOT = { flag:tenet_unrelenting_faith = { is_in_list = selected_doctrines } }
+			}
+			custom_description = {
+				text = incompatible_tenet_pacifism_trigger
+				NOT = { flag:tenet_pacifism = { is_in_list = selected_doctrines } }
+			}
+			custom_description = {
+				text = incompatible_tenet_dharmic_pacifism_trigger
+				NOT = { flag:tenet_dharmic_pacifism = { is_in_list = selected_doctrines } }
+			}
+		}
+
+		parameters = {
+			mz_dawnbreakers_active = yes
+			cheaper_holy_wars_active = yes
+			great_holy_wars_active_if_reformed = yes
+			ghw_no_hof_conversion_buffs_active = yes
+		}
+
+		character_modifier = {
+			tolerance_advantage_mod = 5
+			ai_war_chance = 0.25
+			ai_war_cooldown = -0.10
+		}
+	}
+}
